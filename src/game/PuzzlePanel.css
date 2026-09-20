@@ -74,6 +74,43 @@
   font-weight: 900;
 }
 
+.circuit-fault {
+  position: relative;
+  margin-top: 0.8rem;
+  max-width: 46rem;
+  padding: 0.75rem 0.9rem;
+  border: 3px solid #5b1021;
+  border-radius: 0;
+  background: #fff2f0;
+  color: #2b0a11;
+  box-shadow: 6px 6px 0 #5b1021;
+  font-family: 'Courier New', monospace;
+}
+
+.circuit-fault header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+  color: #7d2030;
+  font-family: 'Cooper Black', 'Cooper Std', 'Arial Rounded MT Bold', ui-rounded, cursive;
+}
+
+.circuit-fault header span {
+  display: grid;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  border: 2px solid #5b1021;
+  background: #ff6b5c;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+}
+
+.circuit-fault p { margin: 0; font-size: 0.82rem; font-weight: 700; }
+.circuit-fault__parts { margin-top: 0.4rem !important; color: #7d2030; }
+
 .circuit-coach-toggle span { margin-right: 0.4rem; }
 .circuit-coach-toggle:hover { transform: translate(-2px, -2px); }
 .circuit-coach-toggle:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 #321638; }

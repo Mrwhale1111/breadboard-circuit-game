@@ -221,6 +221,22 @@
   stroke-dasharray: 1 0.6;
 }
 
+.part--faulted {
+  filter: drop-shadow(0 0 2px #ff6b5c) drop-shadow(0 0 6px #b71938);
+  animation: faulted-part-pulse 650ms steps(2, end) infinite;
+}
+
+.part--faulted .part__hit {
+  stroke: #ff344f;
+  stroke-width: 2.7;
+  stroke-linecap: round;
+  opacity: 0.82;
+}
+
+@keyframes faulted-part-pulse {
+  50% { opacity: 0.55; }
+}
+
 .part--highlighted {
   filter: drop-shadow(0 0 2px #ffd95a) drop-shadow(0 0 5px #ff9f1c);
   animation: part-highlight-pulse 900ms ease-in-out infinite alternate;
@@ -234,6 +250,15 @@
   pointer-events: stroke;
 }
 
+.part--faulted.part--highlighted {
+  filter: drop-shadow(0 0 2px #ff6b5c) drop-shadow(0 0 6px #b71938);
+}
+
+.part--faulted.part--highlighted .part__hit {
+  stroke: #ff344f;
+  stroke-width: 2.7;
+}
+
 @keyframes part-highlight-pulse {
   from { filter: drop-shadow(0 0 1px #ffd95a) drop-shadow(0 0 3px #ff9f1c); }
   to { filter: drop-shadow(0 0 3px #fff2a8) drop-shadow(0 0 7px #ff9f1c); }
@@ -245,6 +270,7 @@
     animation: none;
   }
   .part--highlighted { animation: none; }
+  .part--faulted { animation: none; }
 }
 
 /* ── Board skin + calibration ───────────────────────────────────────────── */

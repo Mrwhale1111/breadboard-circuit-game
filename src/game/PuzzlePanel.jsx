@@ -17,6 +17,7 @@ import { TUTORIAL_LAYOUT, tutorialStageFor } from './tutorialStage.js';
 // import { ObjectiveList } from '../ui/ObjectiveList.jsx';
 import { Knob } from '../ui/Knob.jsx';
 import { CircuitCoach } from './CircuitCoach.jsx';
+import { CircuitFaultBox } from './CircuitFaultBox.jsx';
 import { TutorialMouse } from './TutorialMouse.jsx';
 import { Tray } from '../ui/Tray.jsx';
 import './PuzzlePanel.css';
@@ -126,6 +127,13 @@ export function PuzzlePanel({ level, game, highlightedComponent, onHighlightComp
             Clear board
           </button>
         </div>
+
+        {(state.touched || state.placements.length > 0) && (
+          <CircuitFaultBox
+            placements={state.placements}
+            faults={context.result.faults}
+          />
+        )}
 
         <CircuitCoach
           level={level}
