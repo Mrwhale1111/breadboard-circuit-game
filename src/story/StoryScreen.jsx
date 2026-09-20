@@ -175,7 +175,7 @@ export function StoryScreen({
                   aria-label={beat.blankResolveButton ? beat.resolveLabel : undefined}
                   onClick={advance}
                 >
-                  {beat.blankResolveButton ? null : beat.resolveLabel ?? 'Continue'}
+                  {beat.blankResolveButton ? <span aria-hidden="true">→</span> : beat.resolveLabel ?? 'Continue'}
                 </button>
               </div>
             )}
