@@ -62,6 +62,51 @@
   flex-wrap: wrap;
 }
 
+.circuit-coach {
+  position: relative;
+  margin-top: 0.8rem;
+  max-width: 46rem;
+  padding: 0.8rem 0.95rem;
+  border: 3px solid #17111c;
+  border-radius: 0;
+  background: #fffdf2;
+  color: #17111c;
+  box-shadow: 6px 6px 0 #17111c;
+  font-family: 'Courier New', monospace;
+}
+
+.circuit-coach header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.45rem;
+  color: #321638;
+  font-family: 'Cooper Black', 'Cooper Std', 'Arial Rounded MT Bold', ui-rounded, cursive;
+}
+
+.circuit-coach header span {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid #321638;
+  background: #ffd95a;
+}
+
+.circuit-coach__hint {
+  margin: 0 0 0.55rem;
+  font-weight: 800;
+}
+
+.circuit-coach__plan {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding-left: 1.35rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
 /* ── Knobs ──────────────────────────────────────────────────────────────── */
 
 .puzzle__knobs {

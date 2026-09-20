@@ -16,6 +16,7 @@ import { TUTORIAL_LAYOUT, tutorialStageFor } from './tutorialStage.js';
 // import { HintPanel } from '../ui/HintPanel.jsx';
 // import { ObjectiveList } from '../ui/ObjectiveList.jsx';
 import { Knob } from '../ui/Knob.jsx';
+import { CircuitCoach } from './CircuitCoach.jsx';
 import { TutorialMouse } from './TutorialMouse.jsx';
 import { Tray } from '../ui/Tray.jsx';
 import './PuzzlePanel.css';
@@ -125,6 +126,12 @@ export function PuzzlePanel({ level, game, highlightedComponent, onHighlightComp
             Clear board
           </button>
         </div>
+
+        <CircuitCoach
+          level={level}
+          placements={state.placements}
+          result={context.result}
+        />
       </div>
 
       <aside className="puzzle__sidebar">
