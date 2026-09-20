@@ -14,7 +14,7 @@
  */
 .puzzle {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 15rem;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 1.1rem;
   align-items: end;
   width: 100%;
@@ -26,6 +26,8 @@
  * look nothing like 2.54 mm. `margin-right: auto` keeps it against the left.
  */
 .puzzle__board {
+  width: 100%;
+  position: relative;
   min-width: 0;
   max-width: 46rem;
   margin-right: auto;
@@ -36,11 +38,17 @@
  * is centred against the board's height instead of sharing its bottom line.
  */
 .puzzle__sidebar {
+  --toolbox-width: 15rem;
+
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.9rem;
   align-self: center;
 }
+
+.puzzle__sidebar > .tray { flex: 0 0 var(--toolbox-width); }
 
 .puzzle__toolbar {
   display: flex;
@@ -276,4 +284,6 @@ img.tray__art { image-rendering: pixelated; }
 
 @media (max-width: 62rem) {
   .puzzle { grid-template-columns: minmax(0, 1fr); }
+  .puzzle__sidebar { flex-direction: column; align-items: center; }
+  .puzzle__sidebar > .tray { flex: 0 0 auto; }
 }

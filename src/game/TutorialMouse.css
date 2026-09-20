@@ -1,0 +1,77 @@
+.tutor__box {
+  position: relative;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius);
+  background: var(--glass-strong);
+  backdrop-filter: blur(6px);
+}
+.tutor__box::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--glass-strong);
+}
+.tutor__line { margin: 0; font-size: 0.82rem; line-height: 1.45; color: var(--text); }
+.tutor__line + .tutor__line { margin-top: 0.4rem; }
+.tutor__mouse { height: auto; image-rendering: pixelated; pointer-events: none; user-select: none; }
+.tutor--beside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 12.5rem;
+}
+.tutor--beside .tutor__mouse { width: 8.25rem; }
+.tutor__box--beside { margin-bottom: 0.5rem; }
+.tutor__box--beside::after {
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-right: 1px solid var(--glass-edge);
+  border-bottom: 1px solid var(--glass-edge);
+}
+.tutor__box--perched { flex: 0 1 12.5rem; align-self: center; }
+.tutor__box--perched::after {
+  top: 1rem;
+  right: -7px;
+  transform: rotate(45deg);
+  border-top: 1px solid var(--glass-edge);
+  border-right: 1px solid var(--glass-edge);
+}
+.tutor__perch {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--toolbox-width);
+  display: flex;
+  justify-content: center;
+  transform: translateY(-82%);
+  pointer-events: none;
+}
+.tutor__perch .tutor__mouse { width: 6.5rem; }
+.tutor--over { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.tutor__box--over {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.9rem 1.1rem 0.9rem 9rem;
+  border-radius: var(--radius);
+  pointer-events: auto;
+}
+.tutor__box--over::after { display: none; }
+.tutor--over .tutor__mouse { position: absolute; left: 0.75rem; bottom: 0.4rem; width: 8rem; }
+.tutor__box--over .tutor__line { font-size: 0.9rem; }
+@media (max-width: 62rem) {
+  .tutor--beside, .tutor__box--perched { flex: 0 0 auto; width: min(20rem, 100%); }
+  .tutor__box--perched::after { display: none; }
+  .tutor__perch { position: static; width: auto; transform: translateY(20%); }
+  .tutor__box--over { padding-left: 1.1rem; }
+  .tutor--over .tutor__mouse { display: none; }
+}

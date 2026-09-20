@@ -213,10 +213,19 @@ describe('Level 3 — Reading Light', () => {
     placeDimmer();
     turnTo(50);
     fireEvent.click(continueButton());
-    clickThrough(() => Boolean(screen.queryByText(/End of Level 3/i)));
+    clickThrough(() => Boolean(screen.queryByRole('button', { name: /wire starts sparking/i })));
 
-    expect(screen.getByText(/every level there is/i)).toBeTruthy();
+    expect(screen.getByAltText(/electrical wires crossing and sparking/i)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: /wire starts sparking/i }));
+    expect(screen.getByAltText(/bedroom filled with bright electrical sparks/i)).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: /^continue$/i }));
+    expect(screen.getByAltText(/the end/i)).toBeTruthy();
+
     expect(screen.queryByRole('button', { name: /continue to/i })).toBeNull();
-    expect(screen.getByRole('button', { name: /play level 3 again/i })).toBeTruthy();
+    const menu = screen.getByRole('button', { name: /back to menu/i });
+    expect(menu).toBeTruthy();
+    fireEvent.click(menu);
+    expect(screen.getByRole('button', { name: /start game/i })).toBeTruthy();
   });
 });

@@ -20,9 +20,10 @@ import { background } from '../content/assets.js';
  * @param {string} props.name    key into BACKGROUNDS
  * @param {number} props.light   0..1
  * @param {number} [props.glare] 0..1 — harsh white wash from an over-driven bulb
+ * @param {boolean} [props.effects] Whether to apply lighting overlays
  * @param {React.ReactNode} [props.children]
  */
-export function Scene({ name, light, glare = 0, children }) {
+export function Scene({ name, light, glare = 0, effects = true, children }) {
   const spec = background(name);
   const [imageFailed, setImageFailed] = useState(false);
 
@@ -40,25 +41,25 @@ export function Scene({ name, light, glare = 0, children }) {
       )}
 
       {/* The darkness. Sits above the art, below everything the player touches. */}
-      <div
-        className="scene__veil"
-        style={{ opacity: 1 - clamp(light) }}
-        aria-hidden="true"
-      />
+      {effects && <div
+          className="scene__veil"
+          style={{ opacity: 1 - clamp(light) }}
+          aria-hidden="true"
+        />}
 
       {/* A warm pool of light that grows as the circuit comes alive. */}
-      <div
+      {effects && <div
         className="scene__glow"
         style={{ opacity: clamp(light) * 0.55 }}
         aria-hidden="true"
-      />
+      />}
 
       {/* Too much light: the bleached-out wash of a bulb driven past its limit. */}
-      <div
+      {effects && <div
         className="scene__glare"
         style={{ opacity: clamp(glare) }}
         aria-hidden="true"
-      />
+      />}
 
       <div className="scene__content">{children}</div>
     </div>

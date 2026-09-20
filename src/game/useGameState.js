@@ -59,6 +59,7 @@ export const DRAG_THRESHOLD = 4;
  * @property {Placement[][]} history   Snapshots for undo, newest last
  * @property {number} hintsRevealed
  * @property {string | null} notice    Transient message, e.g. "no wires left"
+ * @property {boolean} touched         Whether the player has changed the board
  */
 
 /** @param {Level} level @returns {GameState} */
@@ -68,6 +69,7 @@ const initialState = (level) => ({
   history: [],
   hintsRevealed: 0,
   notice: null,
+  touched: false,
 });
 
 /**
@@ -121,6 +123,7 @@ function reducer(state, action) {
     history: [...state.history, state.placements],
     drag: null,
     notice: null,
+    touched: true,
     ...extra,
   });
 

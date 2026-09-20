@@ -66,6 +66,7 @@ export default function App() {
       level={level}
       story={story}
       nextLevel={nextLevel}
+      onMenu={() => setLevelIndex(null)}
       levelNav={
         <LevelNav
           levels={LEVELS}

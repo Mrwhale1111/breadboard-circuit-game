@@ -27,14 +27,16 @@ const DARK = 0.07;
  * @param {{ id: string, title: string, chapter?: string, beats: any[] }} props.story
  * @param {{ label: string, onSelect: () => void } | null} [props.nextLevel]
  *   Offered on the story's end beat. Null on the last level.
+ * @param {() => void} [props.onMenu] Return to the title screen.
  * @param {import('react').ReactNode} [props.levelNav]  Level picker shown in the header.
  */
-export function StoryScreen({ level, story, nextLevel = null, levelNav = null }) {
+export function StoryScreen({ level, story, nextLevel = null, onMenu, levelNav = null }) {
   const { beat, visibleLines, hasMoreLines, advance, restart } = useStory(story);
   const game = useGameState(level);
   const { context } = game;
 
   const isPuzzle = beat.mode === 'puzzle';
+  const isCinematic = beat.cinematic === true;
 
   /*
    * The room follows the LED *right now* — not whether the puzzle is solved.
@@ -69,17 +71,33 @@ export function StoryScreen({ level, story, nextLevel = null, levelNav = null })
   const glare = isPuzzle ? (roomGlare ? 1 : 0) : (beat.glare ?? 0);
 
   return (
-    <Scene key={beat.background} name={beat.background} light={light} glare={glare}>
-      <div className="story" data-mode={beat.mode}>
-        <header className="story__header">
+    <Scene
+      key={beat.background}
+      name={beat.background}
+      light={light}
+      glare={glare}
+      effects={!isCinematic}
+    >
+      <div className="story" data-mode={beat.mode} data-cinematic={isCinematic}>
+        {!isCinematic && <header className="story__header">
           <div>
             <span className="story__chapter">{story.chapter ?? level.title}</span>
             <h1>{story.title}</h1>
           </div>
           {levelNav}
-        </header>
+        </header>}
 
-        {isPuzzle ? (
+        {isCinematic ? (
+          <div className="story__cinematic">
+            {beat.next ? (
+              <button type="button" onClick={advance}>{beat.advance ?? 'Continue'}</button>
+            ) : (
+              <button type="button" className="story__menu-button" onClick={onMenu ?? restart}>
+                Back to Menu
+              </button>
+            )}
+          </div>
+        ) : isPuzzle ? (
           <>
             <DialogueBox lines={visibleLines} dimmed />
             <PuzzlePanel level={level} game={game} />
@@ -101,7 +119,7 @@ export function StoryScreen({ level, story, nextLevel = null, levelNav = null })
           />
         )}
 
-        {beat.mode === 'end' && !hasMoreLines && (
+        {!isCinematic && beat.mode === 'end' && !hasMoreLines && (
           <div className="story__end">
             <p className="story__end-label">End of {story.chapter ?? level.title}</p>
             <p className="story__end-note">
@@ -111,8 +129,13 @@ export function StoryScreen({ level, story, nextLevel = null, levelNav = null })
             </p>
             <div className="story__end-actions">
               {nextLevel && (
-                <button type="button" onClick={nextLevel.onSelect}>
-                  {nextLevel.label}
+                <button
+                  type="button"
+                  className={beat.blankNextLevelButton ? 'story__blank-continue' : undefined}
+                  aria-label={beat.blankNextLevelButton ? nextLevel.label : undefined}
+                  onClick={nextLevel.onSelect}
+                >
+                  {beat.blankNextLevelButton ? null : nextLevel.label}
                 </button>
               )}
               <button type="button" className="button--ghost" onClick={restart}>

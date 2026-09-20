@@ -44,6 +44,21 @@ export const BACKGROUNDS = {
     alt: 'The same living room, warmly lit',
     fallback: 'linear-gradient(180deg, #4a3a22 0%, #6b5233 60%, #3a2c19 100%)',
   },
+  'ending-wires': {
+    src: `${BASE}/backgrounds/ending-wires.png`,
+    alt: 'Exposed electrical wires crossing and sparking inside a wall panel',
+    fallback: 'linear-gradient(180deg, #9a6139 0%, #4a2c1b 100%)',
+  },
+  'ending-sparks': {
+    src: `${BASE}/backgrounds/ending-sparks.png`,
+    alt: 'The bedroom filled with bright electrical sparks',
+    fallback: 'linear-gradient(180deg, #72a6f4 0%, #705276 100%)',
+  },
+  'ending-title': {
+    src: `${BASE}/backgrounds/ending-title.png`,
+    alt: 'The End, with a message that the story is to be continued',
+    fallback: 'linear-gradient(180deg, #32115c 0%, #7a237f 65%, #24123f 100%)',
+  },
 };
 
 /** @type {Record<string, AssetSpec>} */

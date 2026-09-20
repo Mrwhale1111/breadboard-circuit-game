@@ -154,6 +154,15 @@
  * @property {Objective[]} objectives   ALL must pass to win
  * @property {string[]} hints           Revealed one at a time, in order
  * @property {RealWorldNote} realWorld  Shown after winning — the "why this matters" payoff
+ * @property {Tutorial} [tutorial]      Optional staged Level 1 coaching
+ */
+
+/**
+ * @typedef {object} Tutorial
+ * @property {string[]} placing
+ * @property {string[]} placed
+ * @property {string[]} board
+ * @property {string[]} feed
  */
 
 /**

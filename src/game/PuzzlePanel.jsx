@@ -10,10 +10,12 @@
  */
 
 import { Breadboard } from '../breadboard/Breadboard.jsx';
+import { TUTORIAL_LAYOUT, tutorialStageFor } from './tutorialStage.js';
 // Paired with the commented-out panels in the sidebar below — put both back together.
 // import { HintPanel } from '../ui/HintPanel.jsx';
 // import { ObjectiveList } from '../ui/ObjectiveList.jsx';
 import { Knob } from '../ui/Knob.jsx';
+import { TutorialMouse } from './TutorialMouse.jsx';
 import { Tray } from '../ui/Tray.jsx';
 import './PuzzlePanel.css';
 
@@ -50,6 +52,9 @@ export function PuzzlePanel({ level, game }) {
   };
 
   const status = state.notice ?? statusLine(context.result);
+  const tutorialStage = level.tutorial ? tutorialStageFor(state.placements, state.touched) : null;
+  const tutorialLines = tutorialStage ? level.tutorial[tutorialStage] : null;
+  const tutorialLayout = tutorialStage ? TUTORIAL_LAYOUT[tutorialStage] : null;
   const knobs = state.placements.filter((placement) => placement.type === 'potentiometer');
 
   return (
@@ -65,6 +70,8 @@ export function PuzzlePanel({ level, game }) {
           onPartKeyDown={handlePartKeyDown}
           onPartTurn={(id, turn) => dispatch({ type: 'setTurn', id, turn })}
         />
+
+        {tutorialLayout === 'over' && <TutorialMouse layout="over" lines={tutorialLines} />}
 
         {knobs.length > 0 && (
           <div className="puzzle__knobs">
@@ -112,6 +119,9 @@ export function PuzzlePanel({ level, game }) {
       </div>
 
       <aside className="puzzle__sidebar">
+        {tutorialLayout && tutorialLayout !== 'over' && (
+          <TutorialMouse layout={tutorialLayout} lines={tutorialLines} />
+        )}
         <Tray
           level={level}
           placements={state.placements}
