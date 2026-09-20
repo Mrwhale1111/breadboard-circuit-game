@@ -26,6 +26,7 @@ import { Part } from '../components/library/Part.jsx';
 import { CalibrationPanel } from './CalibrationPanel.jsx';
 import { SKIN_IMAGE, calibrationRequested, loadSkin, saveSkin } from './boardSkin.js';
 import { useImageAvailable } from './useImageAvailable.js';
+import { breadboardExplanation } from './breadboardExplanation.js';
 import {
   BOARD_HEIGHT,
   BOARD_WIDTH,
@@ -91,6 +92,7 @@ export function Breadboard({
   }, []);
 
   const highlighted = hovered ? stripOf.get(hovered) : null;
+  const explanation = hovered && !aiming ? breadboardExplanation(hovered) : null;
 
   const faultedIds = useMemo(
     () => new Set((result?.faults ?? []).flatMap((fault) => fault.placementIds)),
@@ -264,6 +266,13 @@ export function Breadboard({
           </g>
         )}
       </svg>
+
+      {explanation && (
+        <aside className="breadboard-guide" aria-live="polite">
+          <strong>{explanation.title}</strong>
+          <span>{explanation.text}</span>
+        </aside>
+      )}
 
       {calibrating && <CalibrationPanel skin={skin} onChange={updateSkin} imageFound={skinned} />}
     </div>
