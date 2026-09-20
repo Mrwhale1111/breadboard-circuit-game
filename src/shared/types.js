@@ -152,6 +152,9 @@
  * @property {TrayItem[]} tray          What the player is given to work with
  * @property {Placement[]} preplaced    Components already on the board, not removable
  * @property {Objective[]} objectives   ALL must pass to win
+ * @property {FaultCode[]} [expectedFaults]  Conditions this level creates on
+ *                                      purpose. Still simulated, just not
+ *                                      reported — no red part, no fault box.
  * @property {string[]} hints           Revealed one at a time, in order
  * @property {RealWorldNote} realWorld  Shown after winning — the "why this matters" payoff
  * @property {Tutorial} [tutorial]      What the mouse says beside the toolbox.

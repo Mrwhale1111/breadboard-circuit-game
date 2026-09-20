@@ -47,7 +47,9 @@ describe('Main menu', () => {
     fireEvent.click(screen.getByRole('button', { name: /^3/ }));
     // Jumping to a later level skips the intro — it sets up the beginning.
     expect(document.querySelector('.intro-slide')).toBeNull();
-    expect(screen.getByText(/found a book/i)).toBeTruthy();
+    // Level 3 has no story text of its own; it opens on the board.
+    expect(document.querySelector('.story__chapter').textContent).toBe('Level 3');
+    expect(document.querySelector('[data-hole]')).toBeTruthy();
 
     /*
       The way back lives on the level picker, which is commented out in

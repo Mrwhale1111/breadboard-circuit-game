@@ -42,32 +42,20 @@ export const level2Story = {
       ],
       resolve: 'The glare drops away. The light settles to something warm and steady.',
       resolveLabel: 'Lower your hand',
-      next: 'solved',
-    },
-
-    {
-      id: 'solved',
-      background: 'living-room-lit',
-      light: 0.85,
-      mode: 'narrative',
-      lines: [
-        'You can look straight at it now. The room is simply lit — the way a room should be.',
-        'Same battery, same bulb. The only thing that changed is one small part telling the current to slow down.',
-        'That is all a resistor does. It is also most of what a dimmer does.',
-      ],
-      advance: 'Sit down',
       next: 'rest',
     },
 
+    /*
+     * Nothing to read after the puzzle: solving it goes straight to the end
+     * card and the way into level 3. The beat stays because an `end` beat is
+     * what draws that card — it just has no lines of its own any more.
+     */
     {
       id: 'rest',
       background: 'living-room-lit',
       light: 0.85,
       mode: 'end',
-      lines: [
-        'You drop onto the sofa. The light hums quietly above you and does not flicker.',
-        'Tomorrow you might find out who took the panel apart. Tonight, it is enough that it works.',
-      ],
+      lines: [],
       advance: null,
       next: null,
       blankNextLevelButton: true,

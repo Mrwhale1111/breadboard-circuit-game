@@ -14,34 +14,8 @@ export const level3Story = {
   chapter: 'Level 3',
 
   beats: [
-    {
-      id: 'evening',
-      background: 'living-room-lit',
-      light: 1,
-      mode: 'narrative',
-      lines: [
-        'Later. You have found a book, and the sofa, and the one working light in the house.',
-        'It is safe now. It is also aimed at you like an interrogation lamp.',
-        'You want it on. You just want less of it.',
-      ],
-      advance: 'Go and look at the panel',
-      next: 'panel',
-    },
-
-    {
-      id: 'panel',
-      background: 'living-room-lit',
-      light: 1,
-      mode: 'narrative',
-      lines: [
-        'The loop is as you left it: battery, switch, resistor, LED.',
-        'Except someone has pulled the return wire back four columns and left a gap after the LED.',
-        'Taped to the inside of the door is a small blue part with a knob on top, and a note: “for when it is too much.”',
-      ],
-      advance: 'Pick it up',
-      next: 'puzzle',
-    },
-
+    // Nothing to read on the way in: level 2's end card leads straight to the
+    // board. The briefing the player needs is on the puzzle beat itself.
     {
       id: 'puzzle',
       background: 'living-room-lit',
@@ -55,8 +29,13 @@ export const level3Story = {
       resolve: '',
       resolveLabel: 'Continue to ending',
       blankResolveButton: true,
-      next: 'ending-wires',
+      next: 'ending-title',
     },
+
+    /*
+      PARKED — the two cards the endgame used to run through before the title.
+      Nothing reaches them while the puzzle's `next` points straight at
+      'ending-title' above; point it back at 'ending-wires' to play them.
 
     {
       id: 'ending-wires',
@@ -81,7 +60,9 @@ export const level3Story = {
       advance: 'Continue',
       next: 'ending-title',
     },
+    */
 
+    /* Winning level 3 goes straight here. */
     {
       id: 'ending-title',
       background: 'ending-title',
