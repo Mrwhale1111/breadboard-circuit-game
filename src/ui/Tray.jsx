@@ -34,13 +34,21 @@ import { releaseImplicitCapture } from '../shared/pointer.js';
  * @param {(type: string, from: {x: number, y: number}) => void} props.onGrab
  * @param {(type: string) => void} props.onPlace
  */
-export function Tray({ level, placements, drag, onGrab, onPlace }) {
+export function Tray({
+  level,
+  placements,
+  drag,
+  onGrab,
+  onPlace,
+  highlightedComponent,
+  onInspect,
+}) {
   const [hovered, setHovered] = useState(null);
   const skinned = useImageAvailable(TOOLBOX_IMAGE) === true;
 
   // What the caption is talking about: whatever you are pointing at, or
   // whatever you are dragging once you have picked something up.
-  const described = (drag?.source === 'tray' ? drag.type : null) ?? hovered;
+  const described = (drag?.source === 'tray' ? drag.type : null) ?? hovered ?? highlightedComponent;
 
   return (
     <section className={skinned ? 'tray' : 'tray panel'}>
@@ -69,6 +77,7 @@ export function Tray({ level, placements, drag, onGrab, onPlace }) {
                   className="tray__item"
                   data-part={item.type}
                   data-dragging={dragging}
+                  data-highlighted={highlightedComponent === item.type}
                   disabled={exhausted}
                   aria-label={`${def.label}. ${left === Infinity ? 'Unlimited' : left} left. ${def.blurb}`}
                   onPointerEnter={() => setHovered(item.type)}
@@ -87,6 +96,7 @@ export function Tray({ level, placements, drag, onGrab, onPlace }) {
                    * without this guard letting go would place a second part.
                    */
                   onClick={(event) => {
+                    onInspect?.(item.type);
                     if (event.detail === 0) onPlace(item.type);
                   }}
                 >
@@ -101,7 +111,11 @@ export function Tray({ level, placements, drag, onGrab, onPlace }) {
         </ul>
       </div>
 
-      <p className="tray__caption" aria-live="polite">
+      <p
+        className="tray__caption"
+        data-selected={Boolean(highlightedComponent)}
+        aria-live="polite"
+      >
         {described ? <Caption type={described} /> : <Howto drag={drag} />}
       </p>
     </section>

@@ -26,6 +26,7 @@ import { Part } from '../components/library/Part.jsx';
 import { CalibrationPanel } from './CalibrationPanel.jsx';
 import { SKIN_IMAGE, calibrationRequested, loadSkin, saveSkin } from './boardSkin.js';
 import { useImageAvailable } from './useImageAvailable.js';
+import { breadboardExplanation } from './breadboardExplanation.js';
 import {
   BOARD_HEIGHT,
   BOARD_WIDTH,
@@ -50,6 +51,7 @@ const PAD = 7;
  * @param {(id: string, legIndex: number | null, from: object) => void} [props.onGrabPart]
  * @param {(id: string, event: KeyboardEvent) => void} [props.onPartKeyDown]
  * @param {(id: string, turn: number) => void} [props.onPartTurn]
+ * @param {string|null} [props.highlightedComponent]
  */
 export function Breadboard({
   placements = [],
@@ -60,6 +62,7 @@ export function Breadboard({
   onGrabPart,
   onPartKeyDown,
   onPartTurn,
+  highlightedComponent = null,
 }) {
   const [hovered, setHovered] = useState(null);
   const [skin, setSkin] = useState(loadSkin);
@@ -89,6 +92,7 @@ export function Breadboard({
   }, []);
 
   const highlighted = hovered ? stripOf.get(hovered) : null;
+  const explanation = hovered && !aiming ? breadboardExplanation(hovered) : null;
 
   const faultedIds = useMemo(
     () => new Set((result?.faults ?? []).flatMap((fault) => fault.placementIds)),
@@ -247,6 +251,7 @@ export function Breadboard({
               result={result?.components?.[placement.id]}
               faulted={faultedIds.has(placement.id)}
               dragging={drag?.id === placement.id && aiming}
+              highlighted={placement.type === highlightedComponent}
               onGrab={onGrabPart}
               onKeyDown={onPartKeyDown}
               onTurn={onPartTurn}
@@ -261,6 +266,13 @@ export function Breadboard({
           </g>
         )}
       </svg>
+
+      {explanation && (
+        <aside className="breadboard-guide" aria-live="polite">
+          <strong>{explanation.title}</strong>
+          <span>{explanation.text}</span>
+        </aside>
+      )}
 
       {calibrating && <CalibrationPanel skin={skin} onChange={updateSkin} imageFound={skinned} />}
     </div>

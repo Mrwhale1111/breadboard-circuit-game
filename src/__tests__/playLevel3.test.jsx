@@ -41,7 +41,7 @@ function startLevel3() {
 const veilOpacity = () => Number(document.querySelector('.scene__veil').style.opacity);
 const knob = () => document.querySelector('.knob__input');
 const turnTo = (percent) => fireEvent.change(knob(), { target: { value: String(percent) } });
-const continueButton = () => screen.queryByRole('button', { name: /sit back down/i });
+const continueButton = () => screen.queryByRole('button', { name: /continue to ending/i });
 
 describe('Level 3 — Variable Control', () => {
   it('opens on the story, then a board with a gap after the LED', () => {
@@ -208,7 +208,6 @@ describe('Level 3 — Variable Control', () => {
     placeDimmer();
     turnTo(50);
     fireEvent.click(continueButton());
-    clickThrough(() => Boolean(screen.queryByRole('button', { name: /wire starts sparking/i })));
 
     expect(screen.getByAltText(/electrical wires crossing and sparking/i)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: /wire starts sparking/i }));

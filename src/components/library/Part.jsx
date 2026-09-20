@@ -29,6 +29,7 @@ import { releaseImplicitCapture } from '../../shared/pointer.js';
  * @param {boolean} [props.faulted]
  * @param {boolean} [props.dragging]  This part is the one being dragged
  * @param {boolean} [props.ghost]     A preview of where a drop would land
+ * @param {boolean} [props.highlighted] This component type is being explained
  * @param {(id: string, legIndex: number | null, from: {x: number, y: number}) => void} [props.onGrab]
  * @param {(id: string, event: KeyboardEvent) => void} [props.onKeyDown]
  * @param {(id: string, turn: number) => void} [props.onTurn]  potentiometer only
@@ -39,6 +40,7 @@ export function Part({
   faulted = false,
   dragging = false,
   ghost = false,
+  highlighted = false,
   onGrab,
   onKeyDown,
   onTurn,
@@ -77,6 +79,7 @@ export function Part({
     result?.energized ? 'part--energized' : '',
     dragging ? 'part--dragging' : '',
     ghost ? 'part--ghost' : '',
+    highlighted ? 'part--highlighted' : '',
   ]
     .filter(Boolean)
     .join(' ');
@@ -308,6 +311,22 @@ function ArtBody({ art, placement, result, sign, reach }) {
         <text className="part__pole part__pole--pos" x={-foot - 1.1 * sign} y="0.6">
           +
         </text>
+      )}
+
+      {/*
+        Same for the battery: two grey snap terminals that look alike, on the
+        one part where getting them the wrong way round matters most. The
+        drawn version marked them and the drawing cannot, so they go on top.
+      */}
+      {placement.type === 'battery' && (
+        <>
+          <text className="part__pole part__pole--pos" x={(-foot - 1.1) * sign} y="0.6">
+            +
+          </text>
+          <text className="part__pole part__pole--neg" x={(foot + 1.1) * sign} y="0.6">
+            &#8722;
+          </text>
+        </>
       )}
 
       {placement.type === 'potentiometer' && <PotPointer placement={placement} at={heart} />}

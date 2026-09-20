@@ -8,7 +8,12 @@ afterEach(cleanup);
 const navButtons = () => screen.getByRole('navigation', { name: /levels/i }).querySelectorAll('.level-nav__item');
 const current = () => document.querySelector('.level-nav__item[aria-current="page"]');
 
-describe('Level navigation', () => {
+/*
+ * SKIPPED while the level picker is commented out in App.jsx. Uncomment the
+ * levelNav prop there and drop the .skip below to bring these back — they
+ * were passing when it was switched off, and nothing in LevelNav changed.
+ */
+describe.skip('Level navigation', () => {
   it('lists every level and marks the one being played', () => {
     resetIds();
     startGame();

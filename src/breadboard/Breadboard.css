@@ -221,16 +221,101 @@
   stroke-dasharray: 1 0.6;
 }
 
+.part--faulted {
+  filter: drop-shadow(0 0 2px #ff6b5c) drop-shadow(0 0 6px #b71938);
+  animation: faulted-part-pulse 650ms steps(2, end) infinite;
+}
+
+.part--faulted .part__hit {
+  stroke: #ff344f;
+  stroke-width: 2.7;
+  stroke-linecap: round;
+  opacity: 0.82;
+}
+
+@keyframes faulted-part-pulse {
+  50% { opacity: 0.55; }
+}
+
+.part--highlighted {
+  filter: drop-shadow(0 0 2px #ffd95a) drop-shadow(0 0 5px #ff9f1c);
+  animation: part-highlight-pulse 900ms ease-in-out infinite alternate;
+}
+
+.part--highlighted .part__hit {
+  stroke: #ffd95a;
+  stroke-width: 2.4;
+  opacity: 0.7;
+  stroke-linecap: round;
+  pointer-events: stroke;
+}
+
+.part--faulted.part--highlighted {
+  filter: drop-shadow(0 0 2px #ff6b5c) drop-shadow(0 0 6px #b71938);
+}
+
+.part--faulted.part--highlighted .part__hit {
+  stroke: #ff344f;
+  stroke-width: 2.7;
+}
+
+@keyframes part-highlight-pulse {
+  from { filter: drop-shadow(0 0 1px #ffd95a) drop-shadow(0 0 3px #ff9f1c); }
+  to { filter: drop-shadow(0 0 3px #fff2a8) drop-shadow(0 0 7px #ff9f1c); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hole__target,
   .part__glow {
     animation: none;
   }
+  .part--highlighted { animation: none; }
+  .part--faulted { animation: none; }
 }
 
 /* ── Board skin + calibration ───────────────────────────────────────────── */
 
 .breadboard-wrap { position: relative; }
+
+.breadboard-guide {
+  position: absolute;
+  z-index: 8;
+  left: clamp(0.5rem, 3vw, 1.5rem);
+  right: clamp(0.5rem, 3vw, 1.5rem);
+  bottom: 0.8rem;
+  display: grid;
+  gap: 0.2rem;
+  max-width: 38rem;
+  padding: 0.7rem 0.85rem;
+  border: 3px solid #17111c;
+  border-radius: 0;
+  background: #fffdf2;
+  color: #17111c;
+  box-shadow: 5px 5px 0 #17111c;
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  pointer-events: none;
+}
+
+.breadboard-guide strong {
+  color: #321638;
+  font-family: 'Cooper Black', 'Cooper Std', 'Arial Rounded MT Bold', ui-rounded, cursive;
+  font-size: 0.92rem;
+}
+
+.breadboard-guide::after {
+  content: '';
+  position: absolute;
+  left: 2rem;
+  bottom: -9px;
+  width: 12px;
+  height: 12px;
+  border-right: 3px solid #17111c;
+  border-bottom: 3px solid #17111c;
+  background: #fffdf2;
+  transform: rotate(45deg);
+}
 
 /* When a real breadboard image is in play, the holes need a touch more
    contrast to stay findable against photographic detail. */

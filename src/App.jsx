@@ -13,7 +13,8 @@
 import { useState } from 'react';
 import { MainMenu } from './menu/MainMenu.jsx';
 import { IntroSlides } from './story/IntroSlides.jsx';
-import { LevelNav } from './story/LevelNav.jsx';
+// Paired with the commented-out levelNav prop below — put both back together.
+// import { LevelNav } from './story/LevelNav.jsx';
 import { StoryScreen } from './story/StoryScreen.jsx';
 import { getStory } from './story/index.js';
 import { LEVELS } from './content/levels/index.js';
@@ -24,6 +25,7 @@ import { CircuitChat } from './chat/CircuitChat.jsx';
 export default function App() {
   const [levelIndex, setLevelIndex] = useState(null);
   const [showIntro, setShowIntro] = useState(false);
+  const [highlightedComponent, setHighlightedComponent] = useState(null);
   usePawCursor();
 
   /*
@@ -40,7 +42,7 @@ export default function App() {
     return (
       <>
         <MainMenu levels={LEVELS} onStart={start} />
-        <CircuitChat />
+        <CircuitChat onComponentMention={setHighlightedComponent} />
       </>
     );
   }
@@ -61,12 +63,24 @@ export default function App() {
     : null;
 
   return <>
-    <StoryScreen
+      <StoryScreen
       key={level.id}
       level={level}
       story={story}
       nextLevel={nextLevel}
       onMenu={() => setLevelIndex(null)}
+      highlightedComponent={highlightedComponent}
+      onHighlightComponent={(type) => {
+        setHighlightedComponent((current) => current === type ? null : type);
+      }}
+      /*
+        TEMPORARILY OFF — the level picker in the top right. Uncomment this
+        and its import above to bring it back; StoryScreen renders nothing in
+        that corner of the header without it and everything else carries on.
+
+        Getting out of a level does not depend on it: StoryScreen has its own
+        way back to the title screen through the onMenu above.
+
       levelNav={
         <LevelNav
           levels={LEVELS}
@@ -75,7 +89,8 @@ export default function App() {
           onMenu={() => setLevelIndex(null)}
         />
       }
+      */
     />
-    <CircuitChat />
+    <CircuitChat onComponentMention={setHighlightedComponent} />
   </>;
 }

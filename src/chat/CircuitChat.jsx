@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { componentMention } from './componentMention.js';
 import './CircuitChat.css';
 
 const welcome = {
@@ -6,7 +7,7 @@ const welcome = {
   text: 'Hi! I’m Watt, your circuit helper. Ask me about batteries, LEDs, resistors, switches, or breadboards.',
 };
 
-export function CircuitChat() {
+export function CircuitChat({ onComponentMention }) {
   const [open, setOpen] = useState(false);
   const [question, setQuestion] = useState('');
   const [messages, setMessages] = useState([welcome]);
@@ -20,6 +21,8 @@ export function CircuitChat() {
     setQuestion('');
     setWaiting(true);
     setMessages((current) => [...current, { role: 'user', text }]);
+    const mentioned = componentMention(text);
+    if (mentioned) onComponentMention?.(mentioned);
 
     try {
       const response = await fetch('/api/devin-chat', {
