@@ -6,7 +6,9 @@
  * Not a .test.js file, so vitest does not try to collect it.
  */
 
-import { fireEvent, screen } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
+import { FADE_MS } from '../story/StoryScreen.jsx';
 
 const holeNode = (id) => {
   const node = document.querySelector(`[data-hole="${id}"]`);
@@ -108,7 +110,11 @@ export function clickThrough(stopWhen) {
 
 export const boardVisible = () => Boolean(document.querySelector('[data-hole]'));
 
-/** Build level 1's working circuit and walk the story to its end beat. */
+/**
+ * Build level 1's working circuit and flip the switch. The light comes on,
+ * the screen fades, and level 2 opens on its own — there is no button to
+ * press, so this waits out the fade and leaves you on level 2's first beat.
+ */
 export function finishLevel1() {
   clickThrough(boardVisible);
   place('battery', 'TP1', 'TN1');
@@ -117,7 +123,24 @@ export function finishLevel1() {
   place('wire', 'B9', 'B13');
   place('led', 'B13', 'B17');
   place('wire', 'A17', 'TN5');
-  tap(document.querySelector('[data-placement^="switch-"]'));
-  fireEvent.click(screen.getByRole('button', { name: /stand up and look around/i }));
-  clickThrough(() => Boolean(screen.queryByText(/End of Level 1/i)));
+  withFade(() => tap(document.querySelector('[data-placement^="switch-"]')));
+}
+
+/**
+ * Do something that ends a level, then sit through the blackout it starts.
+ *
+ * The fake clock has to be running BEFORE the action: vitest only controls
+ * timers created after useFakeTimers(), so installing it afterwards would
+ * leave the fade's real timer ticking and the next level would never open.
+ */
+export function withFade(action) {
+  vi.useFakeTimers();
+  try {
+    action();
+    act(() => {
+      vi.advanceTimersByTime(FADE_MS);
+    });
+  } finally {
+    vi.useRealTimers();
+  }
 }

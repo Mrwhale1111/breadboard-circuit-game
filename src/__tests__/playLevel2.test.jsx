@@ -21,19 +21,20 @@ afterEach(cleanup);
 function startLevel2() {
   resetIds();
   startGame();
+  // finishLevel1 already lands here: level 1 fades straight into level 2.
   finishLevel1();
-  fireEvent.click(screen.getByRole('button', { name: /continue to level 2/i }));
 }
 
 const veilOpacity = () => Number(document.querySelector('.scene__veil').style.opacity);
 const glareOpacity = () => Number(document.querySelector('.scene__glare').style.opacity);
 
 describe('Level 2 — Turn It Down', () => {
-  it('level 1 ends with a way into level 2', () => {
+  it('level 1 hands straight over, with nothing to press', () => {
     resetIds();
     startGame();
     finishLevel1();
-    expect(screen.getByRole('button', { name: /continue to level 2/i })).toBeTruthy();
+    expect(screen.getByText(/Level 2/i)).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /continue to level 2/i })).toBeNull();
   });
 
   it('opens on the glare, not the puzzle', () => {

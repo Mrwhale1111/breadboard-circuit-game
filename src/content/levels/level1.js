@@ -17,9 +17,14 @@
 
 import {
   TUTORIAL_BOARD,
+  TUTORIAL_DROPPED,
   TUTORIAL_FEED,
+  TUTORIAL_GROUND,
+  TUTORIAL_LED,
+  TUTORIAL_LIT,
   TUTORIAL_PLACED,
   TUTORIAL_PLACING,
+  TUTORIAL_SWITCH,
 } from '../tutorial.js';
 
 /** @typedef {import('../../shared/types.js').Level} Level */
@@ -49,9 +54,14 @@ export const level1 = {
    */
   tutorial: {
     placing: TUTORIAL_PLACING,
+    dropped: TUTORIAL_DROPPED,
     placed: TUTORIAL_PLACED,
     board: TUTORIAL_BOARD,
     feed: TUTORIAL_FEED,
+    ground: TUTORIAL_GROUND,
+    switched: TUTORIAL_SWITCH,
+    led: TUTORIAL_LED,
+    lit: TUTORIAL_LIT,
   },
 
   objectives: [

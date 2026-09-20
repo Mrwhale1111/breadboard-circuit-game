@@ -162,11 +162,21 @@
  * The two things the tutorial mouse has to say, in the order it says them.
  * @typedef {object} Tutorial
  * @property {string[]} placing  Until the player drags their first part
+ * @property {string[]} dropped  Once they drop a part that is not a wire
  * @property {string[]} placed   Once there is a wire on the board
  * @property {string[]} board    Once the battery is across the power rails —
  *                               shown over the board rather than beside it
  * @property {string[]} feed     Once a wire carries the + rail into the main
  *                               grid. Same place as `board`, new words.
+ * @property {string[]} ground   Once the − rail reaches the grid too. Same
+ *                               place again, new words again.
+ * @property {string[]} switched Once the switch bridges the positive side
+ *                               into an empty column. Same place again, and
+ *                               this one asks them to press it.
+ * @property {string[]} led      Once they have pressed the switch closed.
+ *                               Same place again, now about the LED.
+ * @property {string[]} lit      The light is on and the tutorial is over.
+ *                               The mouse reacts; the story takes over.
  */
 
 /**

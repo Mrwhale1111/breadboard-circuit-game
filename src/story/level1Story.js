@@ -19,6 +19,8 @@
  *   glare       0..1, optional harsh white wash (an over-driven bulb)
  *   resolve     puzzle beats only — the line shown once the circuit is solved
  *   resolveLabel  puzzle beats only — the button that moves the story on
+ *   autoAdvance puzzle beats only — no resolve panel at all. Solving it fades
+ *               the screen out and opens the next level on its own.
  */
 
 /** @typedef {import('../shared/types.js').Level} Level */
@@ -52,8 +54,15 @@ export const level1Story = {
         'Rebuild the circuit. Electricity has to leave the battery, pass through ' +
           'everything, and get all the way back — or nothing happens.',
       ],
-      resolve: 'The bulb catches. Light spills out of the panel and across the floor.',
-      resolveLabel: 'Stand up and look around',
+      /*
+       * No resolve panel and nothing to click: the moment the light comes on
+       * the screen fades and level 2 opens on its own. The player has just
+       * blinded themselves — being asked to press a button first would let
+       * all the air out of it.
+       *
+       * `next` is the fallback for a build with no level 2 to fade into.
+       */
+      autoAdvance: true,
       next: 'toobright',
     },
 

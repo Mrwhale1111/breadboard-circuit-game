@@ -11,6 +11,7 @@ import {
   lastPlaced,
   place,
   tap,
+  withFade,
 } from './boardActions.js';
 
 /**
@@ -98,8 +99,10 @@ describe('Level 1 — Lights Out', () => {
     const veil = document.querySelector('.scene__veil');
     expect(Number(veil.style.opacity)).toBe(0);
 
-    // And the story unblocks.
-    expect(screen.getByRole('button', { name: /stand up and look around/i })).toBeTruthy();
+    // And the story takes over on its own: the screen starts fading, with
+    // nothing to press and no way back into the puzzle.
+    expect(document.querySelector('.story__fade')).toBeTruthy();
+    expect(document.querySelector('.story__resolve')).toBeNull();
   });
 
   it('flipping the switch back off makes the room dark again', () => {
@@ -116,24 +119,23 @@ describe('Level 1 — Lights Out', () => {
     expect(Number(document.querySelector('.scene__veil').style.opacity)).toBeGreaterThan(0.8);
   });
 
-  it('reaches the end of level 1 — and stops there', () => {
+  it('fades out of level 1 and into level 2 without being asked', () => {
     resetIds();
     startGame();
     readThroughIntro();
     buildWorkingCircuit();
-    tap(document.querySelector('[data-placement^="switch-"]'));
 
-    fireEvent.click(screen.getByRole('button', { name: /stand up and look around/i }));
+    const chapter = () => document.querySelector('.story__chapter').textContent;
 
-    // The payoff beat, then the hook into level 2.
-    for (let guard = 0; guard < 10; guard += 1) {
-      const advance = document.querySelector('.dialogue__advance');
-      if (!advance) break;
-      fireEvent.click(advance);
-    }
+    withFade(() => {
+      tap(document.querySelector('[data-placement^="switch-"]'));
+      // Still level 1 while the screen is going black.
+      expect(document.querySelector('.story__fade')).toBeTruthy();
+      expect(chapter()).toBe('Level 1');
+    });
 
-    expect(screen.getByText(/End of Level 1/i)).toBeTruthy();
-    expect(screen.getByRole('button', { name: /play level 1 again/i })).toBeTruthy();
+    expect(chapter()).toBe('Level 2');
+    expect(screen.getByText(/my eyes are burning/i)).toBeTruthy();
   });
 });
 

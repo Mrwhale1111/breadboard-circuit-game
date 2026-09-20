@@ -70,6 +70,7 @@ export const level2Story = {
       ],
       advance: null,
       next: null,
+      blankNextLevelButton: true,
     },
   ],
 };

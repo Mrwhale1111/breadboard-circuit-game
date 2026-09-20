@@ -9,6 +9,7 @@
  * drives what B renders and what the player is told.
  */
 
+import { useMemo } from 'react';
 import { Breadboard } from '../breadboard/Breadboard.jsx';
 import { TUTORIAL_LAYOUT, tutorialStageFor } from './tutorialStage.js';
 // Paired with the commented-out panels in the sidebar below — put both back together.
@@ -55,8 +56,22 @@ export function PuzzlePanel({ level, game }) {
    * Which of the mouse's speeches is due, and where it stands to give it. The
    * rules live in tutorialStage.js; all this needs to know is that an 'over'
    * layout belongs inside the board and the rest belong in the sidebar.
+   *
+   * Memoised on the placements: working out the later stages means building a
+   * netlist, and this component re-renders on every pointer move during a
+   * drag, when the board has not changed at all.
+   *
+   * An over-driven LED counts as the light being on. Level 1 has no resistor
+   * to tame it, so its light arrives as glare rather than as `lit` — same as
+   * the rule StoryScreen uses to decide the puzzle is finished.
    */
-  const tutorialStage = level.tutorial ? tutorialStageFor(state.placements, state.touched) : null;
+  const lightOn = Object.values(context.result.components).some(
+    (part) => part.lit === true || part.burnedOut === true,
+  );
+  const tutorialStage = useMemo(
+    () => (level.tutorial ? tutorialStageFor(state.placements, state.touched, lightOn) : null),
+    [level.tutorial, state.placements, state.touched, lightOn],
+  );
   const tutorialLines = tutorialStage ? level.tutorial[tutorialStage] : null;
   const tutorialLayout = tutorialStage ? TUTORIAL_LAYOUT[tutorialStage] : null;
   const knobs = state.placements.filter((placement) => placement.type === 'potentiometer');
