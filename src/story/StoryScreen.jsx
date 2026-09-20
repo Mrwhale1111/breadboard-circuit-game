@@ -39,9 +39,19 @@ export const FADE_MS = 2200;
  * @param {{ label: string, onSelect: () => void } | null} [props.nextLevel]
  *   Offered on the story's end beat. Null on the last level.
  * @param {() => void} [props.onMenu] Return to the title screen.
+ * @param {string|null} [props.highlightedComponent]
+ * @param {(type: string) => void} [props.onHighlightComponent]
  * @param {import('react').ReactNode} [props.levelNav]  Level picker shown in the header.
  */
-export function StoryScreen({ level, story, nextLevel = null, onMenu, levelNav = null }) {
+export function StoryScreen({
+  level,
+  story,
+  nextLevel = null,
+  onMenu,
+  highlightedComponent = null,
+  onHighlightComponent,
+  levelNav = null,
+}) {
   const { beat, visibleLines, hasMoreLines, advance, restart } = useStory(story);
   const game = useGameState(level);
   const { context } = game;
@@ -139,7 +149,12 @@ export function StoryScreen({ level, story, nextLevel = null, onMenu, levelNav =
         ) : isPuzzle ? (
           <>
             <DialogueBox lines={visibleLines} dimmed />
-            <PuzzlePanel level={level} game={game} />
+            <PuzzlePanel
+              level={level}
+              game={game}
+              highlightedComponent={highlightedComponent}
+              onHighlightComponent={onHighlightComponent}
+            />
             {canContinue && !autoAdvance && (
               <div className="story__resolve">
                 <p>{beat.resolve ?? 'The circuit works.'}</p>

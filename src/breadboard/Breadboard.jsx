@@ -50,6 +50,7 @@ const PAD = 7;
  * @param {(id: string, legIndex: number | null, from: object) => void} [props.onGrabPart]
  * @param {(id: string, event: KeyboardEvent) => void} [props.onPartKeyDown]
  * @param {(id: string, turn: number) => void} [props.onPartTurn]
+ * @param {string|null} [props.highlightedComponent]
  */
 export function Breadboard({
   placements = [],
@@ -60,6 +61,7 @@ export function Breadboard({
   onGrabPart,
   onPartKeyDown,
   onPartTurn,
+  highlightedComponent = null,
 }) {
   const [hovered, setHovered] = useState(null);
   const [skin, setSkin] = useState(loadSkin);
@@ -247,6 +249,7 @@ export function Breadboard({
               result={result?.components?.[placement.id]}
               faulted={faultedIds.has(placement.id)}
               dragging={drag?.id === placement.id && aiming}
+              highlighted={placement.type === highlightedComponent}
               onGrab={onGrabPart}
               onKeyDown={onPartKeyDown}
               onTurn={onPartTurn}

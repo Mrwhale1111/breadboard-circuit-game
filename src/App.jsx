@@ -24,6 +24,7 @@ import { CircuitChat } from './chat/CircuitChat.jsx';
 export default function App() {
   const [levelIndex, setLevelIndex] = useState(null);
   const [showIntro, setShowIntro] = useState(false);
+  const [highlightedComponent, setHighlightedComponent] = useState(null);
   usePawCursor();
 
   /*
@@ -40,7 +41,7 @@ export default function App() {
     return (
       <>
         <MainMenu levels={LEVELS} onStart={start} />
-        <CircuitChat />
+        <CircuitChat onComponentMention={setHighlightedComponent} />
       </>
     );
   }
@@ -61,12 +62,16 @@ export default function App() {
     : null;
 
   return <>
-    <StoryScreen
+      <StoryScreen
       key={level.id}
       level={level}
       story={story}
       nextLevel={nextLevel}
       onMenu={() => setLevelIndex(null)}
+      highlightedComponent={highlightedComponent}
+      onHighlightComponent={(type) => {
+        setHighlightedComponent((current) => current === type ? null : type);
+      }}
       levelNav={
         <LevelNav
           levels={LEVELS}
@@ -76,6 +81,6 @@ export default function App() {
         />
       }
     />
-    <CircuitChat />
+    <CircuitChat onComponentMention={setHighlightedComponent} />
   </>;
 }

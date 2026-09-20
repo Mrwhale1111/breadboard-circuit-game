@@ -25,7 +25,7 @@ import './PuzzlePanel.css';
  * @param {import('../shared/types.js').Level} props.level
  * @param {ReturnType<typeof import('./useGameState.js').useGameState>} props.game
  */
-export function PuzzlePanel({ level, game }) {
+export function PuzzlePanel({ level, game, highlightedComponent, onHighlightComponent }) {
   // `objectives` comes back out of here too — the ObjectiveList below is
   // commented out for now, so nothing reads it in this file.
   const { state, dispatch, context, preview } = game;
@@ -88,6 +88,7 @@ export function PuzzlePanel({ level, game }) {
           onGrabPart={(id, legIndex, from) => dispatch({ type: 'grabPart', id, legIndex, from })}
           onPartKeyDown={handlePartKeyDown}
           onPartTurn={(id, turn) => dispatch({ type: 'setTurn', id, turn })}
+          highlightedComponent={highlightedComponent}
         />
 
         {/* The speeches about the board are laid over the board. */}
@@ -139,6 +140,8 @@ export function PuzzlePanel({ level, game }) {
           drag={state.drag}
           onGrab={(componentType, from) => dispatch({ type: 'dragFromTray', componentType, from })}
           onPlace={(componentType) => dispatch({ type: 'placeFromTray', componentType })}
+          highlightedComponent={highlightedComponent}
+          onInspect={onHighlightComponent}
         />
         {/*
           TEMPORARILY OFF — the sidebar is the toolbox and nothing else while the
