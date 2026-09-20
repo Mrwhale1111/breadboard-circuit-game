@@ -111,7 +111,11 @@ export function Tray({
         </ul>
       </div>
 
-      <p className="tray__caption" aria-live="polite">
+      <p
+        className="tray__caption"
+        data-selected={Boolean(highlightedComponent)}
+        aria-live="polite"
+      >
         {described ? <Caption type={described} /> : <Howto drag={drag} />}
       </p>
     </section>

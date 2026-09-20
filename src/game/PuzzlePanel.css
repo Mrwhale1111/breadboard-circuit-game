@@ -244,6 +244,43 @@ img.tray__art { image-rendering: pixelated; }
 }
 .tray__name { color: var(--text); display: block; }
 
+.tray__caption[data-selected='true'] {
+  position: relative;
+  margin-top: 0.8rem;
+  min-height: auto;
+  padding: 0.75rem 0.85rem;
+  border: 3px solid #17111c;
+  border-radius: 0;
+  background: #fffdf2;
+  color: #17111c;
+  box-shadow: 5px 5px 0 #17111c;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.tray__caption[data-selected='true']::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 2rem;
+  width: 14px;
+  height: 14px;
+  border-top: 3px solid #17111c;
+  border-left: 3px solid #17111c;
+  background: #fffdf2;
+  transform: rotate(45deg);
+}
+
+.tray__caption[data-selected='true'] .tray__name {
+  margin-bottom: 0.2rem;
+  color: #321638;
+  font-family: 'Cooper Black', 'Cooper Std', 'Arial Rounded MT Bold', ui-rounded, cursive;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
 .tray__item[data-highlighted='true'] {
   outline: 3px solid #ffd95a;
   outline-offset: 2px;
