@@ -52,35 +52,9 @@ export const level3Story = {
           'current, then drag the dimmer — down for dimmer, up for brighter — until the room ' +
           'is somewhere you could read: not off, not a spotlight, somewhere in between.',
       ],
-      resolve: 'The light eases. The page in your lap is still readable; the rest of the room falls back into shadow.',
-      resolveLabel: 'Sit back down',
-      next: 'solved',
-    },
-
-    {
-      id: 'solved',
-      background: 'living-room-lit',
-      light: 0.45,
-      mode: 'narrative',
-      lines: [
-        'The knob is only a resistor you can change by hand. Turn it one way and the current has a longer path to fight through — less gets to the LED, and it dims.',
-        'Turn it the other way and the path shortens. More current, more light.',
-        'Every volume knob and dimmer switch you have ever touched was this part.',
-      ],
-      advance: 'Open the book',
-      next: 'rest',
-    },
-
-    {
-      id: 'rest',
-      background: 'living-room-lit',
-      light: 0.45,
-      mode: 'narrative',
-      lines: [
-        'The house is quiet. The light is exactly as bright as you want it and not a bit more.',
-        'Whoever left the parts by the panel knew what they were doing. You are starting to think they wanted you to learn this.',
-      ],
-      advance: 'Check the sound in the wall',
+      resolve: '',
+      resolveLabel: 'Continue to ending',
+      blankResolveButton: true,
       next: 'ending-wires',
     },
 
@@ -90,6 +64,7 @@ export const level3Story = {
       light: 1,
       mode: 'cinematic',
       cinematic: true,
+      cardOnly: true,
       lines: [],
       advance: 'A wire starts sparking…',
       next: 'ending-sparks',
@@ -101,6 +76,7 @@ export const level3Story = {
       light: 1,
       mode: 'cinematic',
       cinematic: true,
+      cardOnly: true,
       lines: [],
       advance: 'Continue',
       next: 'ending-title',

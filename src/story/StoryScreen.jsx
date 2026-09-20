@@ -139,7 +139,14 @@ export function StoryScreen({
         {isCinematic ? (
           <div className="story__cinematic">
             {beat.next ? (
-              <button type="button" onClick={advance}>{beat.advance ?? 'Continue'}</button>
+              <button
+                type="button"
+                className={beat.cardOnly ? 'story__card-advance' : undefined}
+                aria-label={beat.cardOnly ? beat.advance ?? 'Continue' : undefined}
+                onClick={advance}
+              >
+                {beat.cardOnly ? null : beat.advance ?? 'Continue'}
+              </button>
             ) : (
               <button type="button" className="story__menu-button" onClick={onMenu ?? restart}>
                 Back to Menu
@@ -156,10 +163,15 @@ export function StoryScreen({
               onHighlightComponent={onHighlightComponent}
             />
             {canContinue && !autoAdvance && (
-              <div className="story__resolve">
-                <p>{beat.resolve ?? 'The circuit works.'}</p>
-                <button type="button" onClick={advance}>
-                  {beat.resolveLabel ?? 'Continue'}
+              <div className="story__resolve" data-blank={beat.blankResolveButton || undefined}>
+                {!beat.blankResolveButton && <p>{beat.resolve ?? 'The circuit works.'}</p>}
+                <button
+                  type="button"
+                  className={beat.blankResolveButton ? 'story__blank-continue' : undefined}
+                  aria-label={beat.blankResolveButton ? beat.resolveLabel : undefined}
+                  onClick={advance}
+                >
+                  {beat.blankResolveButton ? null : beat.resolveLabel ?? 'Continue'}
                 </button>
               </div>
             )}
