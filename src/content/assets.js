@@ -124,9 +124,10 @@ export const COMPONENT_IMAGES = {
   led: `${BASE}/components/ledtool.png`,
   potentiometer: `${BASE}/components/pottool.png`,
   switch: `${BASE}/components/switchonofftool.png`,
+  battery: `${BASE}/components/batteryicontool.png`,
   // No tool drawing of its own yet, so the board one stands in.
   resistor: `${BASE}/components/resblue.png`,
-  // wire and battery have no art yet — they draw their SVG icon instead.
+  // wire has no art yet — it draws its SVG icon instead.
 };
 
 /**
@@ -185,6 +186,26 @@ export function slotScale(type) {
  * @type {Record<string, object>}
  */
 export const COMPONENT_ART = {
+  /*
+   * The one part that spans a rail PAIR rather than two columns in a row, so
+   * its holes are 2.54 apart while the drawing is 10 across — the terminals
+   * sit wider than the holes and the body turns to stand across them. That is
+   * how the drawn battery behaved too; it is a big part on a small board.
+   *
+   * legs[0] is the + terminal, because holes[0] is the one that goes on the +
+   * rail. Swap the two entries to put the other terminal there.
+   */
+  battery: {
+    src: `${BASE}/components/batteryboard.png`,
+    alt: 'A blue 9 V battery seen from above, with its two snap terminals',
+    width: 10,
+    height: 5.93,
+    legs: [
+      [0.328, 0.401],
+      [0.727, 0.404],
+    ],
+  },
+
   led: {
     src: `${BASE}/components/ledboard.png`,
     alt: 'A round red LED standing on two legs',
