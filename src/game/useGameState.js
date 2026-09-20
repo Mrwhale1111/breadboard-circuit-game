@@ -354,6 +354,19 @@ function label(type) {
 }
 
 /**
+ * A copy of `result` with the given fault codes taken out. Returns the
+ * original when there is nothing to drop, so the memo below keeps its
+ * identity and nothing re-renders for no reason.
+ *
+ * @param {import('../shared/types.js').CircuitResult} result
+ * @param {Set<string>} codes
+ */
+function withoutFaults(result, codes) {
+  const faults = result.faults.filter((fault) => !codes.has(fault.code));
+  return faults.length === result.faults.length ? result : { ...result, faults };
+}
+
+/**
  * @param {Level} level
  */
 export function useGameState(level) {
@@ -408,7 +421,27 @@ export function useGameState(level) {
     };
   }, [dragging, dragFrom, dispatch]);
 
-  const context = useMemo(() => simulateAll(state.placements), [state.placements]);
+  /*
+   * The circuit as it stands, minus the faults this level creates on purpose.
+   * Level 1 hands out no resistor, so its LED is always over-driven: perfectly
+   * true, and not the player's mistake. Flagging the part red for the one
+   * thing the level is built around would be telling them off for winning.
+   *
+   * Only the reporting is filtered. `lit`, `burnedOut` and the rest are left
+   * exactly as the engine found them, so objectives and the room's brightness
+   * still see the real circuit.
+   */
+  const context = useMemo(() => {
+    const raw = simulateAll(state.placements);
+    const expected = new Set(level.expectedFaults ?? []);
+    if (expected.size === 0) return raw;
+    return {
+      ...raw,
+      result: withoutFaults(raw.result, expected),
+      resultOpen: withoutFaults(raw.resultOpen, expected),
+      resultClosed: withoutFaults(raw.resultClosed, expected),
+    };
+  }, [state.placements, level.expectedFaults]);
 
   const objectives = useMemo(
     () => level.objectives.map((objective) => ({ ...objective, passed: objective.check(context) })),

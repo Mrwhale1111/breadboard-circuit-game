@@ -221,20 +221,18 @@
   stroke-dasharray: 1 0.6;
 }
 
-.part--faulted {
-  filter: drop-shadow(0 0 2px #ff6b5c) drop-shadow(0 0 6px #b71938);
-  animation: faulted-part-pulse 650ms steps(2, end) infinite;
-}
+/*
+ * Marked, not alarmed. A faulty part gets a red outline and a red line down
+ * its length and stops there — no glow and no flashing. A blinking light is
+ * hard to read, hard to look away from, and hard to sit next to while you
+ * work out what is actually wrong; the fault box says what is wrong in words.
+ */
 
 .part--faulted .part__hit {
   stroke: #ff344f;
   stroke-width: 2.7;
   stroke-linecap: round;
   opacity: 0.82;
-}
-
-@keyframes faulted-part-pulse {
-  50% { opacity: 0.55; }
 }
 
 .part--highlighted {
@@ -248,10 +246,6 @@
   opacity: 0.7;
   stroke-linecap: round;
   pointer-events: stroke;
-}
-
-.part--faulted.part--highlighted {
-  filter: drop-shadow(0 0 2px #ff6b5c) drop-shadow(0 0 6px #b71938);
 }
 
 .part--faulted.part--highlighted .part__hit {
@@ -270,7 +264,6 @@
     animation: none;
   }
   .part--highlighted { animation: none; }
-  .part--faulted { animation: none; }
 }
 
 /* ── Board skin + calibration ───────────────────────────────────────────── */

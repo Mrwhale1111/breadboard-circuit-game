@@ -44,9 +44,10 @@ const turnTo = (percent) => fireEvent.change(knob(), { target: { value: String(p
 const continueButton = () => screen.queryByRole('button', { name: /continue to ending/i });
 
 describe('Level 3 — Variable Control', () => {
-  it('opens on the story, then a board with a gap after the LED', () => {
+  it('opens straight on a board with a gap after the LED', () => {
     startLevel3();
-    expect(screen.getByText(/found a book/i)).toBeTruthy();
+    // No story slides on the way in any more — the board is already there.
+    expect(document.querySelector('.dialogue__line')).toBeNull();
     clickThrough(boardVisible);
 
     expect(document.querySelector('[data-placement="pre-led"]')).toBeTruthy();
@@ -209,13 +210,9 @@ describe('Level 3 — Variable Control', () => {
     turnTo(50);
     fireEvent.click(continueButton());
 
-    expect(screen.getByAltText(/electrical wires crossing and sparking/i)).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: /wire starts sparking/i }));
-    expect(screen.getByAltText(/bedroom filled with bright electrical sparks/i)).toBeTruthy();
-
-    fireEvent.click(screen.getByRole('button', { name: /^continue$/i }));
+    // Straight to the title card — the two cards that came before it are
+    // parked in level3Story.js, so there is nothing to click through.
     expect(screen.getByAltText(/the end/i)).toBeTruthy();
-
     expect(screen.queryByRole('button', { name: /continue to/i })).toBeNull();
     const menu = screen.getByRole('button', { name: /back to menu/i });
     expect(menu).toBeTruthy();

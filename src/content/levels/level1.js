@@ -64,6 +64,14 @@ export const level1 = {
     lit: TUTORIAL_LIT,
   },
 
+  /*
+   * The LED is over-driven here and always will be: this level gives out no
+   * resistor, which is exactly the hole level 2 exists to fill. The engine is
+   * right to notice, but the player has not done anything wrong, so the part
+   * is not marked red and the fault box stays quiet about it.
+   */
+  expectedFaults: ['LED_BURNED_OUT'],
+
   objectives: [
     {
       id: 'loop',

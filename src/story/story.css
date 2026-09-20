@@ -243,8 +243,25 @@
 }
 
 .story__resolve .story__blank-continue {
+  display: grid;
+  place-items: center;
   width: 4.5rem;
-  min-height: 2.5rem;
+  min-height: 2.8rem;
+  border: 3px solid #321638;
+  border-radius: 0;
+  background: #ffd95a;
+  color: #321638;
+  box-shadow: 5px 5px 0 #321638;
+  font-family: 'Courier New', monospace;
+  font-size: 1.65rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.story__resolve .story__blank-continue:hover { transform: translate(-2px, -2px); }
+.story__resolve .story__blank-continue:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 #321638;
 }
 
 .story__cinematic .story__menu-button {
