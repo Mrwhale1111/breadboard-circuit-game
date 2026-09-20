@@ -37,10 +37,11 @@ describe('Main menu', () => {
 
     skipIntro();
     expect(screen.getByText(/Oh shoot/i)).toBeTruthy();
-    expect(document.querySelector('.level-nav__item[aria-current="page"]').textContent).toBe('1');
+    // Off with the level picker in App.jsx — restore together.
+    // expect(document.querySelector('.level-nav__item[aria-current="page"]').textContent).toBe('1');
   });
 
-  it('jumps straight to a level from the menu and returns via the Menu button', () => {
+  it('jumps straight to a level from the menu', () => {
     resetIds();
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: /^3/ }));
@@ -48,7 +49,13 @@ describe('Main menu', () => {
     expect(document.querySelector('.intro-slide')).toBeNull();
     expect(screen.getByText(/found a book/i)).toBeTruthy();
 
+    /*
+      The way back lives on the level picker, which is commented out in
+      App.jsx. Restore this with it — and note there is no route to the title
+      screen from inside a level until then.
+
     fireEvent.click(screen.getByRole('button', { name: /menu/i }));
     expect(screen.getByRole('heading', { name: /watt.s wrong/i })).toBeTruthy();
+    */
   });
 });

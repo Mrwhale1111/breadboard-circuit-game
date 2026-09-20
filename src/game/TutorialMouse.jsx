@@ -18,8 +18,8 @@
  * inside the board, so PuzzlePanel picks the mount point: it is the only thing
  * that knows where those places are. No animation, nothing to click.
  *
- * THE COPY IS A PLACEHOLDER and it lives in content/tutorial.js, not here.
- * Rewrite it there and nothing in this file has to change.
+ * THE COPY LIVES IN content/tutorial.js, not here. Rewrite it there and
+ * nothing in this file has to change.
  */
 
 import { MOUSE_SPRITE } from '../menu/MainMenu.jsx';

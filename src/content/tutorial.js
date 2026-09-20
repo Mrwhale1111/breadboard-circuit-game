@@ -21,16 +21,17 @@
  *   LIT      the light is on. The tutorial is over — the mouse only reacts,
  *            and the story picks it up from there.
  *
- * THIS IS PLACEHOLDER COPY. Rewrite the strings and nothing else changes —
- * TutorialMouse renders whatever lines it is handed, however many.
+ * All of the mouse's words are in this file. Rewrite the strings and nothing
+ * else changes — TutorialMouse renders whatever lines it is handed, however
+ * many of them there are.
  *
  * Which levels get a mouse at all is decided in the level files, not here.
  */
 
 /** Before the player has dragged anything. @type {string[]} */
 export const TUTORIAL_PLACING = [
-  'PLACEHOLDER — Press and hold a part in the toolbox, then drag it out onto the board.',
-  'PLACEHOLDER — Let go over a hole. The ghost shows you where it will land.',
+  'drag wire from the toolbox and see an outline of where it will be placed',
+  'wires are a conductive connection between any electrical component',
 ];
 
 /**
@@ -39,20 +40,20 @@ export const TUTORIAL_PLACING = [
  * @type {string[]}
  */
 export const TUTORIAL_DROPPED = [
-  'PLACEHOLDER — That is the gesture. Every part goes on the board the same way.',
-  'PLACEHOLDER — Now fetch a jumper wire — nothing on the board is joined up without one.',
+  'That is the gesture. Every part goes on the board the same way.',
+  'Now fetch a jumper wire — nothing on the board is joined up without one.',
 ];
 
 /** Once there is a wire on the board. @type {string[]} */
 export const TUTORIAL_PLACED = [
-  'PLACEHOLDER — Nice. That wire joins the two holes it sits in into one point.',
-  'PLACEHOLDER — To move just one end of it, grab the dot on that tip and drag it somewhere else.',
+  'Nice. That wire joins the two holes it sits in into one point.',
+  'To move just one end of it, grab the dot on that tip and drag it somewhere else.',
 ];
 
 /** Once the battery is on the power rails. Shown across the board. @type {string[]} */
 export const TUTORIAL_BOARD = [
-  'PLACEHOLDER — Holes in the same column strip are already joined inside the board.',
-  'PLACEHOLDER — The gap down the middle splits every column in two, so the halves are not connected.',
+  'Holes in the same column strip are already joined inside the board.',
+  'The gap down the middle splits every column in two, so the halves are not connected.',
 ];
 
 /**
@@ -61,8 +62,8 @@ export const TUTORIAL_BOARD = [
  * @type {string[]}
  */
 export const TUTORIAL_FEED = [
-  'PLACEHOLDER — That wire brings power off the + rail and onto the board itself.',
-  'PLACEHOLDER — Everything in that column strip is now live. Build the rest of the loop from there.',
+  'That wire brings power off the + rail and onto the board itself.',
+  'Everything in that column strip is now live. Build the rest of the loop from there.',
 ];
 
 /**
@@ -71,8 +72,8 @@ export const TUTORIAL_FEED = [
  * @type {string[]}
  */
 export const TUTORIAL_GROUND = [
-  'PLACEHOLDER — Both rails are on the board now: one column live, another back to −.',
-  'PLACEHOLDER — Everything you add from here goes between those two, so the current has a way round.',
+  'Both rails are on the board now: one column live, another back to −.',
+  'Everything you add from here goes between those two, so the current has a way round.',
 ];
 
 /**
@@ -81,8 +82,8 @@ export const TUTORIAL_GROUND = [
  * @type {string[]}
  */
 export const TUTORIAL_SWITCH = [
-  'PLACEHOLDER — The switch is in the path now, with its far leg out in a column of its own.',
-  'PLACEHOLDER — Press the switch to close it — that is the gap in the loop you control.',
+  'The switch is in the path now, with its far leg out in a column of its own.',
+  'Press the switch to close it — that is the gap in the loop you control.',
 ];
 
 /**
@@ -91,13 +92,13 @@ export const TUTORIAL_SWITCH = [
  * @type {string[]}
  */
 export const TUTORIAL_LED = [
-  'PLACEHOLDER — Closed. Now the loop needs something to light up at the end of it.',
-  'PLACEHOLDER — The LED only works one way round: its long leg has to face the + side.',
+  'Closed. Now the loop needs something to light up at the end of it.',
+  'The LED only works one way round: its long leg has to face the + side.',
 ];
 
 /**
- * The light is on and the tutorial is done. Not placeholder: it hands off to
- * level 1's closing beat, which opens on the same noise.
+ * The light is on and the tutorial is done. It hands off to level 1's closing
+ * beat, which opens on the same noise.
  *
  * @type {string[]}
  */
