@@ -155,7 +155,11 @@ export function StoryScreen({
           </div>
         ) : isPuzzle ? (
           <>
-            <DialogueBox lines={visibleLines} dimmed />
+            {/*
+              Puzzle description temporarily hidden. Keep this here so the
+              level briefing can be restored without recreating its content.
+              <DialogueBox lines={visibleLines} dimmed />
+            */}
             <PuzzlePanel
               level={level}
               game={game}
